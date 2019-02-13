@@ -4,6 +4,7 @@ from django.contrib import auth
 import random
 
 from .froms import UserForm
+from .models import UserInfo
 
 # Create your views here.
 def login(request):
@@ -121,7 +122,15 @@ def register(request):
         form = UserForm(request.POST)
         if form.is_valid():
             response["user"] = form.cleaned_data.get("user")
-
+            # 生成一条用户记录
+            user = form.cleaned_data.get("user")
+            pwd = form.cleaned_data.get("pwd")
+            email = form.cleaned_data.get("email")
+            avatar_obj = request.FILES.get('avatar')
+            extra = {}
+            if avatar_obj:
+                extra["avatar"] = avatar_obj
+            UserInfo.objects.create_user(username=user,password=pwd, email=email,**extra)
         else:
             # print(form.cleaned_data)
             # print(form.errors)
