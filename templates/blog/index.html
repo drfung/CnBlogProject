@@ -82,12 +82,20 @@
                     <div class="article-item">
                         <h5><a href="">{{ article.title }}</a></h5>
                         <div class="article-desc">
-                    <span class="media-left">
-                        <a href=""><img width="56" height="56" src="media/{{ article.user.avatar }}" alt=""></a>
-                    </span>
+                            <span class="media-left">
+                                <a href="">
+                                    <img width="56" height="56" src="media/{{ article.user.avatar }}" alt="">
+                                </a>
+                            </span>
                             <span class="media-right">
-                        {{ article.desc }}
-                    </span>
+                                {{ article.desc }}
+                            </span>
+                        </div>
+                        <div class="small">
+                            <span><a href="">{{ article.user.username }}</a></span>&nbsp;&nbsp;
+                            <span>发布于&nbsp;&nbsp;{{ article.create_time|date:"Y-m-d H:i" }}</span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment">评论数({{ article.comment_count }})</span>&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-thumbs-up">点赞数（{{ article.up_count }}）</span>&nbsp;&nbsp;
                         </div>
                     </div>
                     <hr>
