@@ -22,9 +22,12 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login, name='blog_login'),
+    path('logout/', views.logout, name='logout'),
     path('get_validCode_img/', views.get_validCode_img, name='get_validCode_img'),
     path('index/', views.index, name='index'),
+    re_path('^$', views.index),
     path('register/', views.register, name='register'),
+
     # media配置
     re_path(r"media/(?P<path>.*$)", serve,{"document_root": settings.MEDIA_ROOT}),
 ]

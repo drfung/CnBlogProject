@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http.response import HttpResponse,JsonResponse
 from django.contrib import auth
 import random
 
 from .froms import UserForm
 from .models import UserInfo
+from blog import models
 
 # Create your views here.
 def login(request):
@@ -29,6 +30,10 @@ def login(request):
         return JsonResponse(response)
 
     return render(request,'blog/login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect(to="/login/")
 
 def get_validCode_img(request):
     def get_random_color():
@@ -112,7 +117,8 @@ def get_validCode_img(request):
     return HttpResponse(data)
 
 def index(request):
-    return HttpResponse("ok")
+    article_list = models.Article.objects.all()
+    return render(request, 'blog/index.html', {"article_list": article_list})
 
 
 def register(request):
@@ -138,4 +144,3 @@ def register(request):
         return JsonResponse(response)
     form = UserForm()
     return render(request, 'blog/register.html', {"form": form,})
-
